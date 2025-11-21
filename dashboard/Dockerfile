@@ -1,11 +1,15 @@
-FROM node:16-alpine as build
+FROM node:18-alpine
+
 WORKDIR /app
+
 COPY package*.json ./
 RUN npm install
-COPY . .
-RUN npm run build
 
-FROM nginx:alpine
-COPY --from=build /app/build /usr/share/nginx/html
+COPY . .
+
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+
+# Chạy server dev ở cổng 80 để khớp với docker-compose (ánh xạ 8080:80)
+# Lưu ý: Create React App mặc định chạy 3000, ta cần set PORT=80
+ENV PORT=80
+CMD ["npm", "start"]
