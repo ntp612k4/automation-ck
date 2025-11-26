@@ -19,6 +19,7 @@ const TabRecruitment = () => {
     e.preventDefault()
 
     // Validate cơ bản
+    // Kiểm tra các trường bắt buộc
     if (
       !recruitmentForm.position ||
       !recruitmentForm.deadline ||
